@@ -17,7 +17,7 @@ class IntermidiateClient extends EventEmitter {
     _setupEvents() {
         // forward packets
         this._client.on('packet', (packet, metaData) => {
-            if (["keep_alive" , "update_time"].includes(metaData.name)) {
+            if (["keep_alive"].includes(metaData.name)) {
                 // do not send to client
                 return
             }
@@ -29,7 +29,9 @@ class IntermidiateClient extends EventEmitter {
             this.emit('packet_to_client', packet, metaData)
         })
 
-        this.on('packet_to_host', (meta, data) => {
+        this.on('packet_to_host', (data, meta) => {
+            // console.log(meta, data);
+            
             if (typeof meta.name === 'undefined') {
                 return
             }

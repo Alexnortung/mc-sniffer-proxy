@@ -32,14 +32,14 @@ class ProxyController {
             if (!this.clientCreated) {
                 return
             }
-            this.intermidiateServer.emit('packet', data.data, data.meta)
+            this.intermidiateServer.emit('packet_to_host', data.data, data.meta)
         })
 
         this.communicator.on('to_client', (data) => {
             if (!this.serverCreated) {
                 return
             }
-            this.intermidiateServer.emit('packet', data.data, data.meta)
+            this.intermidiateServer.emit('packet_to_client', data.data, data.meta)
         })
     }
 

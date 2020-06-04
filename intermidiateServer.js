@@ -32,10 +32,11 @@ class IntermidiateServer extends EventEmitter {
 
             newProxyClient.on('packet', (data, meta) => {
                 // send packet to host unless it is keep-alive packets
-                if (meta.name == "keep_alive" || meta.name == "update_time") {
+                if (meta.name == "keep_alive") {
                     // do not send to client
                     return
                 }
+                // console.log(data, meta)
                 this.emit('packet_to_host', data, meta)
             });
             newProxyClient.on('error', (...data) => {
