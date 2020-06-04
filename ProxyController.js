@@ -5,6 +5,7 @@ const IntermidiateServer = require('./intermidiateServer')
 class ProxyController {
     constructor(version) {
         this.communicator = null
+        this.scriptLoader = null
         this.intermidiateClient = null
         this.intermidiateServer = null
         this.version = version
@@ -16,6 +17,10 @@ class ProxyController {
 
     get serverCreated() {
         return this.intermidiateServer  != null
+    }
+
+    setScriptLoader(scriptLoader) {
+        this.scriptLoader = scriptLoader
     }
 
     setCommunicator(communicator) {
@@ -40,6 +45,16 @@ class ProxyController {
                 return
             }
             this.intermidiateServer.emit('packet_to_client', data.data, data.meta)
+        })
+
+        this.communicator.on('execute_script', (data) => {
+            console.log('recieved execute event');
+            if (!this.scriptLoader == null) {
+                return
+            }
+            console.log('executing with', data);
+            
+            this.scriptLoader.executeBoatScript(data)
         })
     }
 

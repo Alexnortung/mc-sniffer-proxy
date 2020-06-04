@@ -12,6 +12,10 @@ class Communicator extends EventEmitter {
     emitToClient(data) {
         this.emit('to_client', data)
     }
+
+    executeScript(data) {
+        this.emit('execute_script', data)
+    }
 }
 
 module.exports = Communicator

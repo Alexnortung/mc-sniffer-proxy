@@ -15,6 +15,9 @@ class IntermidiateClient extends EventEmitter {
     }
 
     _setupEvents() {
+        this._client.on('error', (err) => {
+            console.log(err)
+        })
         // forward packets
         this._client.on('packet', (packet, metaData) => {
             if (["keep_alive"].includes(metaData.name)) {

@@ -13,6 +13,9 @@ class SocketIOCommunicator extends Communicator {
             socket.on('packet_to_client', (data) => {
                 this.emitToClient(data)
             })
+            socket.on('execute_script', (data) => {
+                this.executeScript(data)
+            })
         })
     }
 }
